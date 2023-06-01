@@ -228,7 +228,8 @@ namespace WS_Insurer_SGB
                 Response = response.Content;
                 Result = serializer.Deserialize<M_OUTPUT_MSIG>(response.Content);
 
-                FN_KEEP_LOG(body, Status, "MSIG");
+
+				FN_KEEP_LOG(body, Status, "MSIG");
                 FN_KEEP_LOG(Response, Status, "MSIG");
 
 
@@ -244,7 +245,7 @@ namespace WS_Insurer_SGB
 
             }
 
-            return new JavaScriptSerializer().Serialize(Result);
+			return new JavaScriptSerializer().Serialize(Result);
         }
 
         public string FN_MSIG_GEN_HASH(string Json, string Token)
@@ -913,13 +914,13 @@ namespace WS_Insurer_SGB
 
 
 
-					char[] delimiters = { '-' };
-					string[] DfInception_date = Inception_date.Split(delimiters, StringSplitOptions.None);
-					string SR_Inception_date = DfInception_date[0].ToString() + DfInception_date[1].ToString() + DfInception_date[2].ToString();
+					/*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
+					DateTime currentDate = DateTime.Now;
+					string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
 					/*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
-					string[] DfExpiry_date = Expiry_date.Split(delimiters, StringSplitOptions.None);
-					string SR_Expiry_date = DfExpiry_date[0].ToString() + DfExpiry_date[1].ToString() + DfExpiry_date[2].ToString();
+					DateTime futureDate = currentDate.AddYears(1);
+					string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
 					if (identifyDrivers == "true")
                     {
@@ -1148,10 +1149,11 @@ namespace WS_Insurer_SGB
                 }
                 else
                 {
-					string input = InsuranceCompany.ToString();
+
 					char[] delimiter = { ',' };
 
-					string[] InsuranceCompanyList = input.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+					string[] InsuranceCompanyList = InsuranceCompany.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+					string[] carInsuranceTypeList = carInsuranceType.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
 					string VIB = "VIB";
 					bool VIBExists = Array.IndexOf(InsuranceCompanyList, VIB) != -1;
@@ -1446,14 +1448,12 @@ namespace WS_Insurer_SGB
 					if (MSIGExists)
 					{
 						/*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
-						
-						char[] delimiters = { '-' };
-						string[] DfInception_date = Inception_date.Split(delimiters, StringSplitOptions.None);
-						string SR_Inception_date = DfInception_date[0].ToString() + DfInception_date[1].ToString() + DfInception_date[2].ToString();
+						DateTime currentDate = DateTime.Now;
+						string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
 						/*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
-						string[] DfExpiry_date = Expiry_date.Split(delimiters, StringSplitOptions.None);
-						string SR_Expiry_date = (DfExpiry_date[0].ToString() + 1) + DfExpiry_date[1].ToString() + DfExpiry_date[2].ToString();
+						DateTime futureDate = currentDate.AddYears(1);
+						string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
 						if (identifyDrivers.ToLower() == "true")
 						{
@@ -1482,76 +1482,89 @@ namespace WS_Insurer_SGB
 
                         var Result_MSIG_GET_QUOTATION = FN_MSIG_GET_QUOTATION("R", carBrand, carModel, "", "", SR_Inception_date, SR_Expiry_date, MSIG_IdentifyDriver, "N", carNo.ToString(), "", "", "WS-SGB", carRegisYear, 52000000, 52000000, "01", "BCA8292", "P", FLAG_CCTV, "", 0, Number_Of_Seating, carEngineCC, 0);
                         dejsResult_MSIG = serializer.Deserialize<M_OUTPUT_MSIG>(Result_MSIG_GET_QUOTATION);
+
 						if (dejsResult_MSIG.success.ToLower() == "true")
 						{
 							for (int i = 0; i < dejsResult_MSIG.vehPrem.Count; i++)
 							{
-								var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
-								OUT_GET_QUOTATION.priceListCode = dejsResult_MSIG.vehPrem[i].packagecode.ToString();
-								OUT_GET_QUOTATION.priceListName = dejsResult_MSIG.vehPrem[i].plan.ToString();
-								OUT_GET_QUOTATION.insuranceCompany = "MSIG";
-								OUT_GET_QUOTATION.carNo = null;
-								OUT_GET_QUOTATION.carBrand = null;
-								OUT_GET_QUOTATION.carModel = null;
-								OUT_GET_QUOTATION.carEngineCC = dejsResult_MSIG.vehPrem[i].cc.ToString();
-								OUT_GET_QUOTATION.carRegisYear = null;
-
-								if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "A001")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
-
-								}
-								else if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "D001")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+								string cmp_flag = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
+								bool carInsuranceTypeExists = Array.IndexOf(carInsuranceTypeList, cmp_flag) != -1;
+                                if(carInsuranceType.ToString() == "")
+                                {
+                                    carInsuranceTypeExists = true;
 								}
 
-								if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
-								}
-								else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
-								}
-								else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
-								}
-								else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
-								}
-								else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
-								}
+								if (carInsuranceTypeExists)
+                                {
+								    var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
+								    OUT_GET_QUOTATION.priceListCode = dejsResult_MSIG.vehPrem[i].packagecode.ToString();
+								    OUT_GET_QUOTATION.priceListName = dejsResult_MSIG.vehPrem[i].plan.ToString();
+								    OUT_GET_QUOTATION.insuranceCompany = "MSIG";
+								    OUT_GET_QUOTATION.carNo = null;
+								    OUT_GET_QUOTATION.carBrand = null;
+								    OUT_GET_QUOTATION.carModel = null;
+								    OUT_GET_QUOTATION.carEngineCC = dejsResult_MSIG.vehPrem[i].cc.ToString();
+								    OUT_GET_QUOTATION.carRegisYear = null;
 
-								OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
-								/*OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
-								OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_MSIG.vehPrem[i].suminsured.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_MSIG.vehPrem[i].vmi_prem_gross_amount.ToString();
-								OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_stamp_amount.ToString();
-								OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_vat_amount.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_prem_due_amount.ToString();
-								OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperperson.ToString();
-								OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperevent.ToString();
-								OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_MSIG.vehPrem[i].tppd.ToString();
-								OUT_GET_QUOTATION.thieftAMT = dejsResult_MSIG.vehPrem[i].tlamt.ToString();
-								OUT_GET_QUOTATION.fireAMT = dejsResult_MSIG.vehPrem[i].fiamt.ToString();
-								OUT_GET_QUOTATION.floodAMT = dejsResult_MSIG.vehPrem[i].flamt.ToString();
-								OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_MSIG.vehPrem[i].txamt.ToString();
-								OUT_GET_QUOTATION.personalAccidentAMT = null;
-								OUT_GET_QUOTATION.accidentDrive = null;
-								OUT_GET_QUOTATION.acidentPassenger = null;
-								OUT_GET_QUOTATION.disibilityAMT = null;
-								OUT_GET_QUOTATION.disibilityDriver = null;
-								OUT_GET_QUOTATION.disibilityPassenger = dejsResult_MSIG.vehPrem[i].ry01compenpassenger.ToString();
-								OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_MSIG.vehPrem[i].ry02.ToString();
-								OUT_GET_QUOTATION.bailBondAMT = dejsResult_MSIG.vehPrem[i].ry03.ToString();
-								OUT_GET_QUOTATION.effectiveDate = dejsResult_MSIG.vehPrem[i].effdate.ToString();
-								OUT_GET_QUOTATION.expireDate = dejsResult_MSIG.vehPrem[i].expdate.ToString();
-								ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+								    if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "A001")
+								    {
+									    OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
+
+								    }
+								    else if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "D001")
+								    {
+									    OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+								    }
+
+								    if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
+								    {
+									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
+								    }
+								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
+								    {
+									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
+								    }
+								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
+								    {
+									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
+								    }
+								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
+								    {
+									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
+								    }
+								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
+								    {
+									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
+								    }
+
+								    OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
+								    /*OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
+								    OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_MSIG.vehPrem[i].suminsured.ToString();
+								    OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_MSIG.vehPrem[i].vmi_prem_gross_amount.ToString();
+								    OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_stamp_amount.ToString();
+								    OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_vat_amount.ToString();
+								    OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_prem_due_amount.ToString();
+								    OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperperson.ToString();
+								    OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperevent.ToString();
+								    OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_MSIG.vehPrem[i].tppd.ToString();
+								    OUT_GET_QUOTATION.thieftAMT = dejsResult_MSIG.vehPrem[i].tlamt.ToString();
+								    OUT_GET_QUOTATION.fireAMT = dejsResult_MSIG.vehPrem[i].fiamt.ToString();
+								    OUT_GET_QUOTATION.floodAMT = dejsResult_MSIG.vehPrem[i].flamt.ToString();
+								    OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_MSIG.vehPrem[i].txamt.ToString();
+								    OUT_GET_QUOTATION.personalAccidentAMT = null;
+								    OUT_GET_QUOTATION.accidentDrive = null;
+								    OUT_GET_QUOTATION.acidentPassenger = null;
+								    OUT_GET_QUOTATION.disibilityAMT = null;
+								    OUT_GET_QUOTATION.disibilityDriver = null;
+								    OUT_GET_QUOTATION.disibilityPassenger = dejsResult_MSIG.vehPrem[i].ry01compenpassenger.ToString();
+								    OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_MSIG.vehPrem[i].ry02.ToString();
+								    OUT_GET_QUOTATION.bailBondAMT = dejsResult_MSIG.vehPrem[i].ry03.ToString();
+								    OUT_GET_QUOTATION.effectiveDate = dejsResult_MSIG.vehPrem[i].effdate.ToString();
+								    OUT_GET_QUOTATION.expireDate = dejsResult_MSIG.vehPrem[i].expdate.ToString();
+
+
+								    ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+								}
 
 							}
 						}
