@@ -117,8 +117,6 @@ namespace WS_Insurer_SGB
 
         }
 
-
-
         [WebMethod]
         public string FN_MSIG_GET_QUOTATION(string action, string make, string model, string packagecode, string packagename, string incdate, string expdate, string name_driv, string inccmi, string veh_cd, string cover_type, string repair_type, string channel, string regis_year, decimal tf_si, decimal od_si, string payment_method, string agentid, string clienttype, string inclcctv, string appid, decimal suminsured, string seat, string cc, decimal tonnage)
         {
@@ -229,7 +227,7 @@ namespace WS_Insurer_SGB
                 Result = serializer.Deserialize<M_OUTPUT_MSIG>(response.Content);
 
 
-				FN_KEEP_LOG(body, Status, "MSIG");
+                FN_KEEP_LOG(body, Status, "MSIG");
                 FN_KEEP_LOG(Response, Status, "MSIG");
 
 
@@ -245,7 +243,7 @@ namespace WS_Insurer_SGB
 
             }
 
-			return new JavaScriptSerializer().Serialize(Result);
+            return new JavaScriptSerializer().Serialize(Result);
         }
 
         public string FN_MSIG_GEN_HASH(string Json, string Token)
@@ -361,8 +359,8 @@ namespace WS_Insurer_SGB
             string str_agentCodeVIB = ConfigurationSettings.AppSettings["str_agentCodeVIB"];
             string[] listvehicleTypeCode = vehicleTypeCode.Split(',');
             string[] listinsuranceType = (insuranceType == "") ? new string[] { "1", "2", "3", "4", "2P", "3P" } : insuranceType.Split(',');
-            string[] listrepairType = (repairType == "") ? new string[] { "D", "G" } : repairType.Split(',')  ;
-			string[] arraydriverlist = driversList.Split(',');
+            string[] listrepairType = (repairType == "") ? new string[] { "D", "G" } : repairType.Split(',');
+            string[] arraydriverlist = driversList.Split(',');
             var arrdriversList = new List<VIB_GET_QUOTATION__DRIVERSLIST>();
             //string[] arrdriversEm = new String[0];
             if (driversList == "" || driversList == " ")
@@ -538,15 +536,15 @@ namespace WS_Insurer_SGB
         [WebMethod]
         public string FN_KPI_GET_QUOTATION(string agentCode, string brand, string model, string carManufactureYear, string motorClass /*carInsuranceType*/)
         {
-			brand = char.ToUpper(brand[0]) + brand.Substring(1).ToLower();
-			model = char.ToUpper(model[0]) + model.Substring(1).ToLower();
+            brand = char.ToUpper(brand[0]) + brand.Substring(1).ToLower();
+            model = char.ToUpper(model[0]) + model.Substring(1).ToLower();
 
-			if (motorClass.Trim() == "" || motorClass.Trim() == "null")
-			{
-				motorClass = "1";
-			}
+            if (motorClass.Trim() == "" || motorClass.Trim() == "null")
+            {
+                motorClass = "1";
+            }
 
-			var Culture = new CultureInfo("en-US");
+            var Culture = new CultureInfo("en-US");
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             CultureInfo.DefaultThreadCurrentCulture = Culture;
             CultureInfo.DefaultThreadCurrentUICulture = Culture;
@@ -603,16 +601,16 @@ namespace WS_Insurer_SGB
                 Status = "success";
                 if (response.StatusCode.ToString() == "OK")
                 {
-					Response = response.Content;
-					Result = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(response.Content);
-				}
+                    Response = response.Content;
+                    Result = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(response.Content);
+                }
                 else
-				{
-					string json = "{\"result\": {  \"resultCode\": \"404\",   \"resultMessage\": \"error\",   \"resultSize\": 0}}";
-					Result = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(json);
-				}
+                {
+                    string json = "{\"result\": {  \"resultCode\": \"404\",   \"resultMessage\": \"error\",   \"resultSize\": 0}}";
+                    Result = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(json);
+                }
                 //Result = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(response.Content);
-                
+
 
             }
             catch (Exception Error)
@@ -682,41 +680,41 @@ namespace WS_Insurer_SGB
 
 
 
-			  string txtRequest = "< carBrand > " + carBrand + " </ carBrand >" +
-                                    "< carModel >  " + carModel + " </ carModel >" +
-                                    "< carYear >  " + carYear + " </ carYear >" +
-                                    "< carRegisYear >  " + carRegisYear + " </ carRegisYear >" +
-                                    "< InsuranceCompany >  " + InsuranceCompany + " </ InsuranceCompany >" +
-                                    "< carNo >  " + carNo + " </ carNo >" +
-                                    "< carProvince >  " + carProvince + " </ carProvince >" +
-                                    "< carEngineCC >  " + carEngineCC + " </ carEngineCC >" +
-                                    "< carWeight >  " + carWeight + " </ carWeight >" +
-                                    "< carCamera >  " + carCamera + " </ carCamera >" +
-                                    "< carFixType >  " + carFixType + " </ carFixType >" +
-                                    "< carInsuranceType >  " + carInsuranceType + " </ carInsuranceType >" +
-                                    "< identifyDrivers >  " + identifyDrivers + " </ identifyDrivers >" +
-                                    "< driverName1 > " + driverName1 + "</ driverName1 >" +
-                                    "< driverName2 > " + driverName2 + "</ driverName2 >" +
-                                    "< driverBirthDate1 > " + driverBirthDate1 + "</ driverBirthDate1 >" +
-                                    "< driverBirthDate2 > " + driverBirthDate2 + "</ driverBirthDate2 >" +
-                                    "< Inception_date >  " + Inception_date + " </ Inception_date >" +
-                                    "< Expiry_date >  " + Expiry_date + " </ Expiry_date >" +
-                                    "< Number_Of_Seating >  " + Number_Of_Seating + " </ Number_Of_Seating >";
+            string txtRequest = "< carBrand > " + carBrand + " </ carBrand >" +
+                                  "< carModel >  " + carModel + " </ carModel >" +
+                                  "< carYear >  " + carYear + " </ carYear >" +
+                                  "< carRegisYear >  " + carRegisYear + " </ carRegisYear >" +
+                                  "< InsuranceCompany >  " + InsuranceCompany + " </ InsuranceCompany >" +
+                                  "< carNo >  " + carNo + " </ carNo >" +
+                                  "< carProvince >  " + carProvince + " </ carProvince >" +
+                                  "< carEngineCC >  " + carEngineCC + " </ carEngineCC >" +
+                                  "< carWeight >  " + carWeight + " </ carWeight >" +
+                                  "< carCamera >  " + carCamera + " </ carCamera >" +
+                                  "< carFixType >  " + carFixType + " </ carFixType >" +
+                                  "< carInsuranceType >  " + carInsuranceType + " </ carInsuranceType >" +
+                                  "< identifyDrivers >  " + identifyDrivers + " </ identifyDrivers >" +
+                                  "< driverName1 > " + driverName1 + "</ driverName1 >" +
+                                  "< driverName2 > " + driverName2 + "</ driverName2 >" +
+                                  "< driverBirthDate1 > " + driverBirthDate1 + "</ driverBirthDate1 >" +
+                                  "< driverBirthDate2 > " + driverBirthDate2 + "</ driverBirthDate2 >" +
+                                  "< Inception_date >  " + Inception_date + " </ Inception_date >" +
+                                  "< Expiry_date >  " + Expiry_date + " </ Expiry_date >" +
+                                  "< Number_Of_Seating >  " + Number_Of_Seating + " </ Number_Of_Seating >";
 
 
-			if (Inception_date.Trim() == "" || Inception_date.Trim() == "null" || Inception_date.Trim() == "0001-01-01")
-			{
-				Inception_date = "2022-03-01";
-			}
-			if (Expiry_date.Trim() == "" || Expiry_date.Trim() == "null" || Inception_date.Trim() == "0001-01-01")
-			{
-				Expiry_date = "2023-03-01";
-			}
+            if (Inception_date.Trim() == "" || Inception_date.Trim() == "null" || Inception_date.Trim() == "0001-01-01")
+            {
+                Inception_date = "2022-03-01";
+            }
+            if (Expiry_date.Trim() == "" || Expiry_date.Trim() == "null" || Inception_date.Trim() == "0001-01-01")
+            {
+                Expiry_date = "2023-03-01";
+            }
 
-			carBrand = char.ToUpper(carBrand[0]) + carBrand.Substring(1).ToLower();
-			carModel = char.ToUpper(carModel[0]) + carModel.Substring(1).ToLower();
+            carBrand = char.ToUpper(carBrand[0]) + carBrand.Substring(1).ToLower();
+            carModel = char.ToUpper(carModel[0]) + carModel.Substring(1).ToLower();
 
-			string MSIG_IdentifyDriver = string.Empty;
+            string MSIG_IdentifyDriver = string.Empty;
             string FLAG_CCTV = string.Empty;
             var dejsResult_VIB = new VIB_GET_QUOTATION();
             var dejsResult_JMI = new M_OUTPUT_JMI();
@@ -752,15 +750,10 @@ namespace WS_Insurer_SGB
 
             try
             {
-
-				
-
-
-				//ค่าเริ่มต้น
-				if (InsuranceCompany.ToString() == "")
+                //ค่าเริ่มต้น
+                if (InsuranceCompany.ToString() == "")
                 {
-
-
+                    //## VIB Start ##//
                     //serializer.Deserialize<VIB_GET_TOKEN>(response.Content);
                     var Result_VIB_GET_QUOTATION = FN_VIB_GET_QUOTATION(" ", carBrand.ToUpper(), carModel.ToUpper(), carRegisYear, carNo, "", "", list_driversList, "", carInsuranceType, carFixType);
                     dejsResult_VIB = serializer.Deserialize<VIB_GET_QUOTATION>(Result_VIB_GET_QUOTATION);
@@ -770,7 +763,7 @@ namespace WS_Insurer_SGB
                         {
                             var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
 
-                            
+
                             OUT_GET_QUOTATION.priceListCode = dejsResult_VIB.data[i].packageCode.ToString();
                             OUT_GET_QUOTATION.priceListName = dejsResult_VIB.data[i].packageName.ToString();
                             OUT_GET_QUOTATION.insuranceCompany = "VIB";
@@ -791,34 +784,34 @@ namespace WS_Insurer_SGB
                             }
 
 
-							if (dejsResult_VIB.data[i].insuranceType.ToString() == "1")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
-							}
-							else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
-							}
-							else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
-							}
-							else if (dejsResult_VIB.data[i].insuranceType.ToString() == "4")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 4";
-							}
-							else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2P")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 2+";
-							}
-							else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3P")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
-							}
+                            if (dejsResult_VIB.data[i].insuranceType.ToString() == "1")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
+                            }
+                            else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
+                            }
+                            else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
+                            }
+                            else if (dejsResult_VIB.data[i].insuranceType.ToString() == "4")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 4";
+                            }
+                            else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2P")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 2+";
+                            }
+                            else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3P")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
+                            }
 
-							//OUT_GET_QUOTATION.carFixType = dejsResult_VIB.data[i].repairType.ToString();
+                            //OUT_GET_QUOTATION.carFixType = dejsResult_VIB.data[i].repairType.ToString();
 
-							/*OUT_GET_QUOTATION.carInsuranceType = dejsResult_VIB.data[i].insuranceType.ToString();*/
+                            /*OUT_GET_QUOTATION.carInsuranceType = dejsResult_VIB.data[i].insuranceType.ToString();*/
                             OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_VIB.data[i].ownDamage.sumInsured.ToString();
                             OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_VIB.data[i].netPremium.ToString();
                             OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_VIB.data[i].stamp.ToString();
@@ -863,7 +856,9 @@ namespace WS_Insurer_SGB
                         }
 
                     }
+                    //## VIB End ##//
 
+                    //## JMI Start ##//
                     var Result_JMI_GET_QUOTATION = FN_JMI_GET_QUOTATION("MOTOR_PACKAGE_SGB", carBrand, carModel, carYear, carEngineCC, carNo);
                     dejsResult_JMI = serializer.Deserialize<M_OUTPUT_JMI>(Result_JMI_GET_QUOTATION);
                     if (dejsResult_JMI.status == "200")
@@ -882,8 +877,8 @@ namespace WS_Insurer_SGB
                             OUT_GET_QUOTATION.carRegisYear = null;
                             OUT_GET_QUOTATION.carFixType = dejsResult_JMI.data[i].Type_garage.ToString();
                             OUT_GET_QUOTATION.carInsuranceType = dejsResult_JMI.data[i].Insurance_type.ToString();
-							OUT_GET_QUOTATION.carInsuranceTypeName = dejsResult_JMI.data[i].Insurance_type.ToString();
-							OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_JMI.data[i].Sum_insure.ToString();
+                            OUT_GET_QUOTATION.carInsuranceTypeName = dejsResult_JMI.data[i].Insurance_type.ToString();
+                            OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_JMI.data[i].Sum_insure.ToString();
                             OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_JMI.data[i].Premium.ToString();
                             OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_JMI.data[i].Duty.ToString();
                             OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_JMI.data[i].Vat.ToString();
@@ -910,19 +905,19 @@ namespace WS_Insurer_SGB
 
                         }
                     }
+                    //## JMI End ##//
 
 
+                    //## MSIG start ##//
+                    /*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
+                    DateTime currentDate = DateTime.Now;
+                    string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
+                    /*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
+                    DateTime futureDate = currentDate.AddYears(1);
+                    string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
 
-					/*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
-					DateTime currentDate = DateTime.Now;
-					string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
-
-					/*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
-					DateTime futureDate = currentDate.AddYears(1);
-					string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
-
-					if (identifyDrivers == "true")
+                    if (identifyDrivers == "true")
                     {
 
                         var length_listdrivers = list_driversList.Split(',');
@@ -975,29 +970,29 @@ namespace WS_Insurer_SGB
                             }
 
 
-							if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
-							}
-							else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
-							}
-							else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
-							}
-							else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
-							}
-							else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
-							{
-								OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
-							}
+                            if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
+                            }
+                            else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
+                            }
+                            else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
+                            }
+                            else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
+                            }
+                            else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
+                            {
+                                OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
+                            }
 
-							OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
-                           /* OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
+                            OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
+                            /* OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
                             OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_MSIG.vehPrem[i].suminsured.ToString();
                             OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_MSIG.vehPrem[i].vmi_prem_gross_amount.ToString();
                             OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_stamp_amount.ToString();
@@ -1024,458 +1019,492 @@ namespace WS_Insurer_SGB
 
                         }
                     }
+                    //## MSIG End ##//
 
+                    //## KPI_GET_QUOTATION ##//
+                    //carInsuranceType
+                    char[] delimiter = { ',' };
 
-                    //KPI_GET_QUOTATION//
-                    var Result_KPI_GET_QUOTATION = FN_KPI_GET_QUOTATION("0032003939", carBrand, carModel, carYear, carInsuranceType);
-                    dejsResult_KPI = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(Result_KPI_GET_QUOTATION);
-                    if (dejsResult_KPI.result.resultMessage == "success")
+                    string[] InsuranceCompanyList = InsuranceCompany.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+                    string[] carInsuranceTypeList = carInsuranceType.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+
+                    string[] insuranceTypes = { "1", "2+", "3", "3+" };
+
+                    foreach (string insuranceType in insuranceTypes)
                     {
+                        var Result_KPI_GET_QUOTATION = FN_KPI_GET_QUOTATION("0032003939", carBrand, carModel, carYear, insuranceType);
+                        dejsResult_KPI = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(Result_KPI_GET_QUOTATION);
 
-                        for (int i = 0; i < dejsResult_KPI.plan.Count; i++)
+                        // Process the deserialized result or do other operations here
+
+                        if (dejsResult_KPI.result.resultMessage == "success")
                         {
-                            var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
 
-                            OUT_GET_QUOTATION.priceListName = dejsResult_KPI.plan[i].planNameTh.ToString();
-                            OUT_GET_QUOTATION.insuranceCompany = "KPI";
-
-                            //planlist//
-                            if (dejsResult_KPI.plan[i].plan.Count != 0)
+                            for (int i = 0; i < dejsResult_KPI.plan.Count; i++)
                             {
-                                OUT_GET_QUOTATION.priceListCode = dejsResult_KPI.plan[i].si.ToString();
-
-                                OUT_GET_QUOTATION.carNo = dejsResult_KPI.plan[i].plan[0].vehicleCode.ToString();
-
-                                OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-                                OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].netPrem.ToString();
-                                OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_KPI.plan[i].plan[0].stamp.ToString();
-                                OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_KPI.plan[i].plan[0].vat.ToString();
-                                OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_KPI.plan[i].plan[0].totalPrem.ToString();
-
-                                OUT_GET_QUOTATION.effectiveDate = dejsResult_KPI.plan[i].plan[0].effectiveDate.ToString();
-                                OUT_GET_QUOTATION.expireDate = dejsResult_KPI.plan[i].plan[0].expiryDate.ToString();
-
-                                OUT_GET_QUOTATION.thieftAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-                                OUT_GET_QUOTATION.fireAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-                                OUT_GET_QUOTATION.floodAMT = null;
-                            }
-                            else
-                            {
-                                OUT_GET_QUOTATION.priceListCode = null;
-                                OUT_GET_QUOTATION.carNo = null;
-
-                                OUT_GET_QUOTATION.personalAccidentAMT = null;
-                                OUT_GET_QUOTATION.premiumInsuranceAMT = null;
-                                OUT_GET_QUOTATION.stampInsuranceTotal = null;
-                                OUT_GET_QUOTATION.vatInsuranceTotal = null;
-                                OUT_GET_QUOTATION.premiumInsuranceTotal = null;
-
-                                OUT_GET_QUOTATION.effectiveDate = null;
-                                OUT_GET_QUOTATION.expireDate = null;
-
-                                OUT_GET_QUOTATION.thieftAMT = null;
-                                OUT_GET_QUOTATION.fireAMT = null;
-                            }
-
-                            OUT_GET_QUOTATION.carBrand = dejsResult_KPI.plan[i].brand.ToString();
-                            OUT_GET_QUOTATION.carModel = dejsResult_KPI.plan[i].model.ToString();
-                            OUT_GET_QUOTATION.carEngineCC = dejsResult_KPI.plan[i].engineCapacity.ToString();
-                            OUT_GET_QUOTATION.carRegisYear = dejsResult_KPI.plan[i].carManufactureYear.ToString();
-
-                            if (dejsResult_KPI.plan[i].repairOption.ToString() == "G")
-                            {
-                                OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
-                            }
-                            else if (dejsResult_KPI.plan[i].repairOption.ToString() == "D")
-                            {
-                                OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
-                            }
-
-
-                            //OUT_GET_QUOTATION.carFixType = dejsResult_KPI.plan[i].repairOption.ToString();
-
-                            OUT_GET_QUOTATION.carInsuranceType = dejsResult_KPI.plan[i].motorClass.ToString();
-
-                            //CoverageList
-                            if (dejsResult_KPI.plan[i].coverageList.Count != 0)
-                            {
-                                if (dejsResult_KPI.plan[i].motorClass.ToString() == "1")
+                                string motorClass = dejsResult_KPI.plan[i].motorClass.ToString();
+                                bool motorClassExists = Array.IndexOf(carInsuranceTypeList, motorClass) != -1;
+                                if (carInsuranceType.ToString() == "")
                                 {
-                                    OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[3].coverageAmt.ToString();
-                                    OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
-                                    OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
-
-                                }
-                                else
-                                {
-                                    OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
-                                    OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
-                                    OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[6].coverageAmt.ToString();
+                                    motorClassExists = true;
                                 }
 
-                                OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_KPI.plan[i].coverageList[1].coverageAmt.ToString();
-                                OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_KPI.plan[i].coverageList[7].coverageAmt.ToString();
-                                OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_KPI.plan[i].coverageList[8].coverageAmt.ToString();
-                                OUT_GET_QUOTATION.bailBondAMT = dejsResult_KPI.plan[i].coverageList[9].coverageAmt.ToString();
+                                if (motorClassExists)
+                                {
+
+                                    var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
+
+                                    OUT_GET_QUOTATION.priceListName = dejsResult_KPI.plan[i].planNameTh.ToString();
+                                    OUT_GET_QUOTATION.insuranceCompany = "KPI";
+
+                                    //planlist//
+                                    if (dejsResult_KPI.plan[i].plan.Count != 0)
+                                    {
+                                        OUT_GET_QUOTATION.priceListCode = dejsResult_KPI.plan[i].si.ToString();
+
+                                        OUT_GET_QUOTATION.carNo = dejsResult_KPI.plan[i].plan[0].vehicleCode.ToString();
+
+                                        OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].netPrem.ToString();
+                                        OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_KPI.plan[i].plan[0].stamp.ToString();
+                                        OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_KPI.plan[i].plan[0].vat.ToString();
+                                        OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_KPI.plan[i].plan[0].totalPrem.ToString();
+
+                                        OUT_GET_QUOTATION.effectiveDate = dejsResult_KPI.plan[i].plan[0].effectiveDate.ToString();
+                                        OUT_GET_QUOTATION.expireDate = dejsResult_KPI.plan[i].plan[0].expiryDate.ToString();
+
+                                        OUT_GET_QUOTATION.thieftAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.fireAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.floodAMT = null;
+                                    }
+                                    else
+                                    {
+                                        OUT_GET_QUOTATION.priceListCode = null;
+                                        OUT_GET_QUOTATION.carNo = null;
+
+                                        OUT_GET_QUOTATION.personalAccidentAMT = null;
+                                        OUT_GET_QUOTATION.premiumInsuranceAMT = null;
+                                        OUT_GET_QUOTATION.stampInsuranceTotal = null;
+                                        OUT_GET_QUOTATION.vatInsuranceTotal = null;
+                                        OUT_GET_QUOTATION.premiumInsuranceTotal = null;
+
+                                        OUT_GET_QUOTATION.effectiveDate = null;
+                                        OUT_GET_QUOTATION.expireDate = null;
+
+                                        OUT_GET_QUOTATION.thieftAMT = null;
+                                        OUT_GET_QUOTATION.fireAMT = null;
+                                    }
+
+                                    OUT_GET_QUOTATION.carBrand = dejsResult_KPI.plan[i].brand.ToString();
+                                    OUT_GET_QUOTATION.carModel = dejsResult_KPI.plan[i].model.ToString();
+                                    OUT_GET_QUOTATION.carEngineCC = dejsResult_KPI.plan[i].engineCapacity.ToString();
+                                    OUT_GET_QUOTATION.carRegisYear = dejsResult_KPI.plan[i].carManufactureYear.ToString();
+
+                                    if (dejsResult_KPI.plan[i].repairOption.ToString() == "G")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
+                                    }
+                                    else if (dejsResult_KPI.plan[i].repairOption.ToString() == "D")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+                                    }
+
+
+                                    //OUT_GET_QUOTATION.carFixType = dejsResult_KPI.plan[i].repairOption.ToString();
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท " + dejsResult_KPI.plan[i].motorClass.ToString();
+
+                                    //OUT_GET_QUOTATION.carInsuranceType = dejsResult_KPI.plan[i].motorClass.ToString();
+
+                                    //CoverageList
+                                    if (dejsResult_KPI.plan[i].coverageList.Count != 0)
+                                    {
+                                        if (dejsResult_KPI.plan[i].motorClass.ToString() == "1")
+                                        {
+                                            OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[3].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
+
+                                        }
+                                        else
+                                        {
+                                            OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[6].coverageAmt.ToString();
+                                        }
+
+                                        OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_KPI.plan[i].coverageList[1].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_KPI.plan[i].coverageList[7].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_KPI.plan[i].coverageList[8].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.bailBondAMT = dejsResult_KPI.plan[i].coverageList[9].coverageAmt.ToString();
+                                    }
+                                    else
+                                    {
+                                        OUT_GET_QUOTATION.bodyPersonAMT = null;
+                                        OUT_GET_QUOTATION.accidentPersonAMT = null;
+                                        OUT_GET_QUOTATION.propertiesPersonAMT = null;
+
+
+                                        OUT_GET_QUOTATION.carDecitibleAMT = null;
+                                        OUT_GET_QUOTATION.personalAccidentAMT = null;
+
+                                        OUT_GET_QUOTATION.medicalExpenseAMT = null;
+                                        OUT_GET_QUOTATION.bailBondAMT = null;
+                                    }
+
+
+
+                                    OUT_GET_QUOTATION.floodAMT = null;
+                                    OUT_GET_QUOTATION.accidentDrive = null;
+                                    OUT_GET_QUOTATION.acidentPassenger = null;
+                                    OUT_GET_QUOTATION.disibilityAMT = null;
+                                    OUT_GET_QUOTATION.disibilityDriver = null;
+                                    OUT_GET_QUOTATION.disibilityPassenger = null;
+
+                                    //## KPI All Quotation End ##//
+
+                                    ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                                }
                             }
-                            else
-                            {
-                                OUT_GET_QUOTATION.bodyPersonAMT = null;
-                                OUT_GET_QUOTATION.accidentPersonAMT = null;
-                                OUT_GET_QUOTATION.propertiesPersonAMT = null;
-
-
-                                OUT_GET_QUOTATION.carDecitibleAMT = null;
-                                OUT_GET_QUOTATION.personalAccidentAMT = null;
-
-                                OUT_GET_QUOTATION.medicalExpenseAMT = null;
-                                OUT_GET_QUOTATION.bailBondAMT = null;
-                            }
-
-
-
-                            OUT_GET_QUOTATION.floodAMT = null;
-                            OUT_GET_QUOTATION.accidentDrive = null;
-                            OUT_GET_QUOTATION.acidentPassenger = null;
-                            OUT_GET_QUOTATION.disibilityAMT = null;
-                            OUT_GET_QUOTATION.disibilityDriver = null;
-                            OUT_GET_QUOTATION.disibilityPassenger = null;
-
-                            ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
-
-
                         }
                     }
                 }
                 else
                 {
 
-					char[] delimiter = { ',' };
+                    char[] delimiter = { ',' };
 
-					string[] InsuranceCompanyList = InsuranceCompany.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
-					string[] carInsuranceTypeList = carInsuranceType.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+                    string[] InsuranceCompanyList = InsuranceCompany.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
+                    string[] carInsuranceTypeList = carInsuranceType.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
-					string VIB = "VIB";
-					bool VIBExists = Array.IndexOf(InsuranceCompanyList, VIB) != -1;
-					if (VIBExists)
-					{
-						var Result_VIB_GET_QUOTATION = FN_VIB_GET_QUOTATION(" ", carBrand.ToUpper(), carModel.ToUpper(), carRegisYear, carNo, "", "", list_driversList, "", carInsuranceType, carFixType);
-						dejsResult_VIB = serializer.Deserialize<VIB_GET_QUOTATION>(Result_VIB_GET_QUOTATION);
-						if (dejsResult_VIB.integrationStatusCode == "0")
-						{
-							for (int i = 0; i < dejsResult_VIB.data.Count(); i++)
-							{
-								var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
-
-
-								OUT_GET_QUOTATION.priceListCode = dejsResult_VIB.data[i].packageCode.ToString();
-								OUT_GET_QUOTATION.priceListName = dejsResult_VIB.data[i].packageName.ToString();
-								OUT_GET_QUOTATION.insuranceCompany = "VIB";
-								OUT_GET_QUOTATION.carNo = dejsResult_VIB.data[i].vehicleTypeCode.ToString();
-								OUT_GET_QUOTATION.carBrand = dejsResult_VIB.data[i].carBrand.ToString();
-								OUT_GET_QUOTATION.carModel = dejsResult_VIB.data[i].carModel.ToString();
-								OUT_GET_QUOTATION.carEngineCC = dejsResult_VIB.data[i].engineCC.ToString();
-								OUT_GET_QUOTATION.carRegisYear = dejsResult_VIB.data[i].registrationYear.ToString();
-
-								if (dejsResult_VIB.data[i].repairType.ToString() == "G")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
-
-								}
-								else if (dejsResult_VIB.data[i].repairType.ToString() == "D")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
-								}
+                    string VIB = "VIB";
+                    bool VIBExists = Array.IndexOf(InsuranceCompanyList, VIB) != -1;
+                    if (VIBExists)
+                    {
+                        var Result_VIB_GET_QUOTATION = FN_VIB_GET_QUOTATION(" ", carBrand.ToUpper(), carModel.ToUpper(), carRegisYear, carNo, "", "", list_driversList, "", carInsuranceType, carFixType);
+                        dejsResult_VIB = serializer.Deserialize<VIB_GET_QUOTATION>(Result_VIB_GET_QUOTATION);
+                        if (dejsResult_VIB.integrationStatusCode == "0")
+                        {
+                            for (int i = 0; i < dejsResult_VIB.data.Count(); i++)
+                            {
+                                var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
 
 
-								if (dejsResult_VIB.data[i].insuranceType.ToString() == "1")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
-								}
-								else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
-								}
-								else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
-								}
-								else if (dejsResult_VIB.data[i].insuranceType.ToString() == "4")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท 4";
-								}
-								else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2P")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 2+";
-								}
-								else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3P")
-								{
-									OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
-								}
+                                OUT_GET_QUOTATION.priceListCode = dejsResult_VIB.data[i].packageCode.ToString();
+                                OUT_GET_QUOTATION.priceListName = dejsResult_VIB.data[i].packageName.ToString();
+                                OUT_GET_QUOTATION.insuranceCompany = "VIB";
+                                OUT_GET_QUOTATION.carNo = dejsResult_VIB.data[i].vehicleTypeCode.ToString();
+                                OUT_GET_QUOTATION.carBrand = dejsResult_VIB.data[i].carBrand.ToString();
+                                OUT_GET_QUOTATION.carModel = dejsResult_VIB.data[i].carModel.ToString();
+                                OUT_GET_QUOTATION.carEngineCC = dejsResult_VIB.data[i].engineCC.ToString();
+                                OUT_GET_QUOTATION.carRegisYear = dejsResult_VIB.data[i].registrationYear.ToString();
 
-								//OUT_GET_QUOTATION.carFixType = dejsResult_VIB.data[i].repairType.ToString();
+                                if (dejsResult_VIB.data[i].repairType.ToString() == "G")
+                                {
+                                    OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
 
-								//OUT_GET_QUOTATION.carInsuranceType = dejsResult_VIB.data[i].insuranceType.ToString();
-								OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_VIB.data[i].ownDamage.sumInsured.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_VIB.data[i].netPremium.ToString();
-								OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_VIB.data[i].stamp.ToString();
-								OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_VIB.data[i].vat.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_VIB.data[i].totalPremium.ToString();
-								OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_VIB.data[i].liability.tpbiPerPerson.ToString();
-								OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_VIB.data[i].liability.tpbiPerEvent.ToString();
-								OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_VIB.data[i].liability.tppdPerEvent.ToString();
-								OUT_GET_QUOTATION.thieftAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
-								OUT_GET_QUOTATION.fireAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
-								OUT_GET_QUOTATION.floodAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
-								OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_VIB.data[i].ownDamage.deductible.ToString();
-								if (dejsResult_VIB.data[i].additionalCoverage.Count != 0)
-								{
-									OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.driverDeath.ToString();
-									OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.driverDeath.ToString();
-									OUT_GET_QUOTATION.accidentDrive = null;
-									OUT_GET_QUOTATION.acidentPassenger = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.numberPassengerTemporaryDisability.ToString();
-									OUT_GET_QUOTATION.disibilityAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.temporaryDisabilityPassenger.ToString();
-									OUT_GET_QUOTATION.disibilityDriver = null;
-									OUT_GET_QUOTATION.disibilityPassenger = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.numberPassengerTemporaryDisability.ToString();
-									OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_VIB.data[i].additionalCoverage[0].medicalExpense.ToString();
-									OUT_GET_QUOTATION.bailBondAMT = dejsResult_VIB.data[i].additionalCoverage[0].bailBond.ToString();
-								}
-								else
-								{
-									OUT_GET_QUOTATION.personalAccidentAMT = null;
-									OUT_GET_QUOTATION.personalAccidentAMT = null;
-									OUT_GET_QUOTATION.accidentDrive = null;
-									OUT_GET_QUOTATION.acidentPassenger = null;
-									OUT_GET_QUOTATION.disibilityAMT = null;
-									OUT_GET_QUOTATION.disibilityDriver = null;
-									OUT_GET_QUOTATION.disibilityPassenger = null;
-									OUT_GET_QUOTATION.medicalExpenseAMT = null;
-									OUT_GET_QUOTATION.bailBondAMT = null;
-								}
+                                }
+                                else if (dejsResult_VIB.data[i].repairType.ToString() == "D")
+                                {
+                                    OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+                                }
 
-								OUT_GET_QUOTATION.effectiveDate = null;
-								OUT_GET_QUOTATION.expireDate = null;
-								ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                                if (dejsResult_VIB.data[i].insuranceType.ToString() == "1")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
+                                }
+                                else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
+                                }
+                                else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
+                                }
+                                else if (dejsResult_VIB.data[i].insuranceType.ToString() == "4")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 4";
+                                }
+                                else if (dejsResult_VIB.data[i].insuranceType.ToString() == "2P")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 2+";
+                                }
+                                else if (dejsResult_VIB.data[i].insuranceType.ToString() == "3P")
+                                {
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
+                                }
 
-							}
+                                //OUT_GET_QUOTATION.carFixType = dejsResult_VIB.data[i].repairType.ToString();
 
-						}
-					}
+                                //OUT_GET_QUOTATION.carInsuranceType = dejsResult_VIB.data[i].insuranceType.ToString();
+                                OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_VIB.data[i].ownDamage.sumInsured.ToString();
+                                OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_VIB.data[i].netPremium.ToString();
+                                OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_VIB.data[i].stamp.ToString();
+                                OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_VIB.data[i].vat.ToString();
+                                OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_VIB.data[i].totalPremium.ToString();
+                                OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_VIB.data[i].liability.tpbiPerPerson.ToString();
+                                OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_VIB.data[i].liability.tpbiPerEvent.ToString();
+                                OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_VIB.data[i].liability.tppdPerEvent.ToString();
+                                OUT_GET_QUOTATION.thieftAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
+                                OUT_GET_QUOTATION.fireAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
+                                OUT_GET_QUOTATION.floodAMT = dejsResult_VIB.data[i].ownDamage.tfSumInsured.ToString();
+                                OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_VIB.data[i].ownDamage.deductible.ToString();
+                                if (dejsResult_VIB.data[i].additionalCoverage.Count != 0)
+                                {
+                                    OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.driverDeath.ToString();
+                                    OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.driverDeath.ToString();
+                                    OUT_GET_QUOTATION.accidentDrive = null;
+                                    OUT_GET_QUOTATION.acidentPassenger = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.numberPassengerTemporaryDisability.ToString();
+                                    OUT_GET_QUOTATION.disibilityAMT = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.temporaryDisabilityPassenger.ToString();
+                                    OUT_GET_QUOTATION.disibilityDriver = null;
+                                    OUT_GET_QUOTATION.disibilityPassenger = dejsResult_VIB.data[i].additionalCoverage[0].personAccident.numberPassengerTemporaryDisability.ToString();
+                                    OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_VIB.data[i].additionalCoverage[0].medicalExpense.ToString();
+                                    OUT_GET_QUOTATION.bailBondAMT = dejsResult_VIB.data[i].additionalCoverage[0].bailBond.ToString();
+                                }
+                                else
+                                {
+                                    OUT_GET_QUOTATION.personalAccidentAMT = null;
+                                    OUT_GET_QUOTATION.personalAccidentAMT = null;
+                                    OUT_GET_QUOTATION.accidentDrive = null;
+                                    OUT_GET_QUOTATION.acidentPassenger = null;
+                                    OUT_GET_QUOTATION.disibilityAMT = null;
+                                    OUT_GET_QUOTATION.disibilityDriver = null;
+                                    OUT_GET_QUOTATION.disibilityPassenger = null;
+                                    OUT_GET_QUOTATION.medicalExpenseAMT = null;
+                                    OUT_GET_QUOTATION.bailBondAMT = null;
+                                }
 
-					string JMI = "JMI";
-					bool JMIExists = Array.IndexOf(InsuranceCompanyList, JMI) != -1;
-					if (JMIExists)
-					{
-						var Result_JMI_GET_QUOTATION = FN_JMI_GET_QUOTATION("MOTOR_PACKAGE_SGB", carBrand, carModel, carYear, carEngineCC, carNo);
-						dejsResult_JMI = serializer.Deserialize<M_OUTPUT_JMI>(Result_JMI_GET_QUOTATION);
-						if (dejsResult_JMI.status == "200")
-						{
+                                OUT_GET_QUOTATION.effectiveDate = null;
+                                OUT_GET_QUOTATION.expireDate = null;
+                                ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
 
-							for (int i = 0; i < dejsResult_JMI.data.Count; i++)
-							{
-								var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
-								OUT_GET_QUOTATION.priceListCode = dejsResult_JMI.data[i].Package_code.ToString();
-								OUT_GET_QUOTATION.priceListName = dejsResult_JMI.data[i].Package_name.ToString();
-								OUT_GET_QUOTATION.insuranceCompany = "JMI";
-								OUT_GET_QUOTATION.carNo = null;
-								OUT_GET_QUOTATION.carBrand = null;
-								OUT_GET_QUOTATION.carModel = null;
-								OUT_GET_QUOTATION.carEngineCC = null;
-								OUT_GET_QUOTATION.carRegisYear = null;
-								OUT_GET_QUOTATION.carFixType = dejsResult_JMI.data[i].Type_garage.ToString();
-								OUT_GET_QUOTATION.carInsuranceType = dejsResult_JMI.data[i].Insurance_type.ToString();
+                            }
 
-								OUT_GET_QUOTATION.carInsuranceTypeName = dejsResult_JMI.data[i].Insurance_type.ToString();
+                        }
+                    }
 
-								OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_JMI.data[i].Sum_insure.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_JMI.data[i].Premium.ToString();
-								OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_JMI.data[i].Duty.ToString();
-								OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_JMI.data[i].Vat.ToString();
-								OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_JMI.data[i].Total_insurance.ToString();
-								OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_JMI.data[i].Damage_life_per_person.ToString();
-								OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_JMI.data[i].Damage_life_per_time.ToString();
-								OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_JMI.data[i].Damage_property.ToString();
-								OUT_GET_QUOTATION.thieftAMT = dejsResult_JMI.data[i].Damage_lost.ToString();
-								OUT_GET_QUOTATION.fireAMT = dejsResult_JMI.data[i].Damage_fire.ToString();
-								OUT_GET_QUOTATION.floodAMT = dejsResult_JMI.data[i].Damage_flood.ToString();
-								OUT_GET_QUOTATION.carDecitibleAMT = null;
-								OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_JMI.data[i].Damage_death_permanent_disability.ToString();
-								OUT_GET_QUOTATION.accidentDrive = dejsResult_JMI.data[i].Coverage_amount_driver.ToString();
-								OUT_GET_QUOTATION.acidentPassenger = dejsResult_JMI.data[i].Coverage_amount_passengers.ToString();
-								OUT_GET_QUOTATION.disibilityAMT = dejsResult_JMI.data[i].Damage_temporary_disability.ToString();
-								OUT_GET_QUOTATION.disibilityDriver = dejsResult_JMI.data[i].Coverage_amount_driver.ToString();
-								OUT_GET_QUOTATION.disibilityPassenger = dejsResult_JMI.data[i].Coverage_amount_passengers.ToString();
-								OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_JMI.data[i].Medical_expenses.ToString();
-								OUT_GET_QUOTATION.bailBondAMT = dejsResult_JMI.data[i].Driver_bail.ToString();
-								OUT_GET_QUOTATION.effectiveDate = null;
-								OUT_GET_QUOTATION.expireDate = null;
-								ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                    string JMI = "JMI";
+                    bool JMIExists = Array.IndexOf(InsuranceCompanyList, JMI) != -1;
+                    if (JMIExists)
+                    {
+                        var Result_JMI_GET_QUOTATION = FN_JMI_GET_QUOTATION("MOTOR_PACKAGE_SGB", carBrand, carModel, carYear, carEngineCC, carNo);
+                        dejsResult_JMI = serializer.Deserialize<M_OUTPUT_JMI>(Result_JMI_GET_QUOTATION);
+                        if (dejsResult_JMI.status == "200")
+                        {
 
+                            for (int i = 0; i < dejsResult_JMI.data.Count; i++)
+                            {
+                                var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
+                                OUT_GET_QUOTATION.priceListCode = dejsResult_JMI.data[i].Package_code.ToString();
+                                OUT_GET_QUOTATION.priceListName = dejsResult_JMI.data[i].Package_name.ToString();
+                                OUT_GET_QUOTATION.insuranceCompany = "JMI";
+                                OUT_GET_QUOTATION.carNo = null;
+                                OUT_GET_QUOTATION.carBrand = null;
+                                OUT_GET_QUOTATION.carModel = null;
+                                OUT_GET_QUOTATION.carEngineCC = null;
+                                OUT_GET_QUOTATION.carRegisYear = null;
+                                OUT_GET_QUOTATION.carFixType = dejsResult_JMI.data[i].Type_garage.ToString();
+                                OUT_GET_QUOTATION.carInsuranceType = dejsResult_JMI.data[i].Insurance_type.ToString();
 
-							}
-						}
-					}
+                                OUT_GET_QUOTATION.carInsuranceTypeName = dejsResult_JMI.data[i].Insurance_type.ToString();
 
-					string KPI = "KPI";
-					bool KPIExists = Array.IndexOf(InsuranceCompanyList, KPI) != -1;
-					if (KPIExists)
-					{
-						var Result_KPI_GET_QUOTATION = FN_KPI_GET_QUOTATION("0032003939", carBrand, carModel, carYear, carInsuranceType);
-						dejsResult_KPI = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(Result_KPI_GET_QUOTATION);
-						if (dejsResult_KPI.result.resultMessage == "success")
-						{
-
-							for (int i = 0; i < dejsResult_KPI.plan.Count; i++)
-							{
-								var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
-
-								OUT_GET_QUOTATION.priceListName = dejsResult_KPI.plan[i].planNameTh.ToString();
-								OUT_GET_QUOTATION.insuranceCompany = "KPI";
-
-								//planlist//
-								if (dejsResult_KPI.plan[i].plan.Count != 0)
-								{
-									OUT_GET_QUOTATION.priceListCode = dejsResult_KPI.plan[i].si.ToString();
-
-									OUT_GET_QUOTATION.carNo = dejsResult_KPI.plan[i].plan[0].vehicleCode.ToString();
-
-									OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-									OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].netPrem.ToString();
-									OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_KPI.plan[i].plan[0].stamp.ToString();
-									OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_KPI.plan[i].plan[0].vat.ToString();
-									OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_KPI.plan[i].plan[0].totalPrem.ToString();
-
-									OUT_GET_QUOTATION.effectiveDate = dejsResult_KPI.plan[i].plan[0].effectiveDate.ToString();
-									OUT_GET_QUOTATION.expireDate = dejsResult_KPI.plan[i].plan[0].expiryDate.ToString();
-
-									OUT_GET_QUOTATION.thieftAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-									OUT_GET_QUOTATION.fireAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
-									OUT_GET_QUOTATION.floodAMT = null;
-								}
-								else
-								{
-									OUT_GET_QUOTATION.priceListCode = null;
-									OUT_GET_QUOTATION.carNo = null;
-
-									OUT_GET_QUOTATION.personalAccidentAMT = null;
-									OUT_GET_QUOTATION.premiumInsuranceAMT = null;
-									OUT_GET_QUOTATION.stampInsuranceTotal = null;
-									OUT_GET_QUOTATION.vatInsuranceTotal = null;
-									OUT_GET_QUOTATION.premiumInsuranceTotal = null;
-
-									OUT_GET_QUOTATION.effectiveDate = null;
-									OUT_GET_QUOTATION.expireDate = null;
-
-									OUT_GET_QUOTATION.thieftAMT = null;
-									OUT_GET_QUOTATION.fireAMT = null;
-								}
+                                OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_JMI.data[i].Sum_insure.ToString();
+                                OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_JMI.data[i].Premium.ToString();
+                                OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_JMI.data[i].Duty.ToString();
+                                OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_JMI.data[i].Vat.ToString();
+                                OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_JMI.data[i].Total_insurance.ToString();
+                                OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_JMI.data[i].Damage_life_per_person.ToString();
+                                OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_JMI.data[i].Damage_life_per_time.ToString();
+                                OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_JMI.data[i].Damage_property.ToString();
+                                OUT_GET_QUOTATION.thieftAMT = dejsResult_JMI.data[i].Damage_lost.ToString();
+                                OUT_GET_QUOTATION.fireAMT = dejsResult_JMI.data[i].Damage_fire.ToString();
+                                OUT_GET_QUOTATION.floodAMT = dejsResult_JMI.data[i].Damage_flood.ToString();
+                                OUT_GET_QUOTATION.carDecitibleAMT = null;
+                                OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_JMI.data[i].Damage_death_permanent_disability.ToString();
+                                OUT_GET_QUOTATION.accidentDrive = dejsResult_JMI.data[i].Coverage_amount_driver.ToString();
+                                OUT_GET_QUOTATION.acidentPassenger = dejsResult_JMI.data[i].Coverage_amount_passengers.ToString();
+                                OUT_GET_QUOTATION.disibilityAMT = dejsResult_JMI.data[i].Damage_temporary_disability.ToString();
+                                OUT_GET_QUOTATION.disibilityDriver = dejsResult_JMI.data[i].Coverage_amount_driver.ToString();
+                                OUT_GET_QUOTATION.disibilityPassenger = dejsResult_JMI.data[i].Coverage_amount_passengers.ToString();
+                                OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_JMI.data[i].Medical_expenses.ToString();
+                                OUT_GET_QUOTATION.bailBondAMT = dejsResult_JMI.data[i].Driver_bail.ToString();
+                                OUT_GET_QUOTATION.effectiveDate = null;
+                                OUT_GET_QUOTATION.expireDate = null;
+                                ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
 
 
-								OUT_GET_QUOTATION.carBrand = dejsResult_KPI.plan[i].brand.ToString();
-								OUT_GET_QUOTATION.carModel = dejsResult_KPI.plan[i].model.ToString();
-								OUT_GET_QUOTATION.carEngineCC = dejsResult_KPI.plan[i].engineCapacity.ToString();
-								OUT_GET_QUOTATION.carRegisYear = dejsResult_KPI.plan[i].carManufactureYear.ToString();
+                            }
+                        }
+                    }
+
+                    string KPI = "KPI";
+                    bool KPIExists = Array.IndexOf(InsuranceCompanyList, KPI) != -1;
+                    if (KPIExists)
+                    {
+                        var Result_KPI_GET_QUOTATION = FN_KPI_GET_QUOTATION("0032003939", carBrand, carModel, carYear, carInsuranceType);
+                        dejsResult_KPI = serializer.Deserialize<KPI_GET_QUOTATION.PlanList>(Result_KPI_GET_QUOTATION);
+                        if (dejsResult_KPI.result.resultMessage == "success")
+                        {
+
+                            for (int i = 0; i < dejsResult_KPI.plan.Count; i++)
+                            {
+
+                                string motorClass = dejsResult_KPI.plan[i].motorClass.ToString();
+                                bool motorClassExists = Array.IndexOf(carInsuranceTypeList, motorClass) != -1;
+                                if (carInsuranceType.ToString() == "")
+                                {
+                                    motorClassExists = true;
+                                }
+
+                                if(motorClassExists)
+                                {
+                                    var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
+
+                                    OUT_GET_QUOTATION.priceListName = dejsResult_KPI.plan[i].planNameTh.ToString();
+                                    OUT_GET_QUOTATION.insuranceCompany = "KPI";
+
+                                    //planlist//
+                                    if (dejsResult_KPI.plan[i].plan.Count != 0)
+                                    {
+                                        OUT_GET_QUOTATION.priceListCode = dejsResult_KPI.plan[i].si.ToString();
+
+                                        OUT_GET_QUOTATION.carNo = dejsResult_KPI.plan[i].plan[0].vehicleCode.ToString();
+
+                                        OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_KPI.plan[i].plan[0].netPrem.ToString();
+                                        OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_KPI.plan[i].plan[0].stamp.ToString();
+                                        OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_KPI.plan[i].plan[0].vat.ToString();
+                                        OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_KPI.plan[i].plan[0].totalPrem.ToString();
+
+                                        OUT_GET_QUOTATION.effectiveDate = dejsResult_KPI.plan[i].plan[0].effectiveDate.ToString();
+                                        OUT_GET_QUOTATION.expireDate = dejsResult_KPI.plan[i].plan[0].expiryDate.ToString();
+
+                                        OUT_GET_QUOTATION.thieftAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.fireAMT = dejsResult_KPI.plan[i].plan[0].sumInsured.ToString();
+                                        OUT_GET_QUOTATION.floodAMT = null;
+                                    }
+                                    else
+                                    {
+                                        OUT_GET_QUOTATION.priceListCode = null;
+                                        OUT_GET_QUOTATION.carNo = null;
+
+                                        OUT_GET_QUOTATION.personalAccidentAMT = null;
+                                        OUT_GET_QUOTATION.premiumInsuranceAMT = null;
+                                        OUT_GET_QUOTATION.stampInsuranceTotal = null;
+                                        OUT_GET_QUOTATION.vatInsuranceTotal = null;
+                                        OUT_GET_QUOTATION.premiumInsuranceTotal = null;
+
+                                        OUT_GET_QUOTATION.effectiveDate = null;
+                                        OUT_GET_QUOTATION.expireDate = null;
+
+                                        OUT_GET_QUOTATION.thieftAMT = null;
+                                        OUT_GET_QUOTATION.fireAMT = null;
+                                    }
 
 
-								if (dejsResult_KPI.plan[i].repairOption.ToString() == "G")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
-								}
-								else if (dejsResult_KPI.plan[i].repairOption.ToString() == "D")
-								{
-									OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
-								}
+                                    OUT_GET_QUOTATION.carBrand = dejsResult_KPI.plan[i].brand.ToString();
+                                    OUT_GET_QUOTATION.carModel = dejsResult_KPI.plan[i].model.ToString();
+                                    OUT_GET_QUOTATION.carEngineCC = dejsResult_KPI.plan[i].engineCapacity.ToString();
+                                    OUT_GET_QUOTATION.carRegisYear = dejsResult_KPI.plan[i].carManufactureYear.ToString();
 
 
-								//OUT_GET_QUOTATION.carFixType = dejsResult_KPI.plan[i].repairOption.ToString();
+                                    if (dejsResult_KPI.plan[i].repairOption.ToString() == "G")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
+                                    }
+                                    else if (dejsResult_KPI.plan[i].repairOption.ToString() == "D")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+                                    }
+                    
+                                    //OUT_GET_QUOTATION.carFixType = dejsResult_KPI.plan[i].repairOption.ToString();
 
-								OUT_GET_QUOTATION.carInsuranceType = dejsResult_KPI.plan[i].motorClass.ToString();
+                                    OUT_GET_QUOTATION.carInsuranceType = "ประเภท " + dejsResult_KPI.plan[i].motorClass.ToString();
 
-								//CoverageList
-								if (dejsResult_KPI.plan[i].coverageList.Count != 0)
-								{
-									if (dejsResult_KPI.plan[i].motorClass.ToString() == "1")
-									{
-										OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[3].coverageAmt.ToString();
-										OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
-										OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
+                                    //CoverageList
+                                    if (dejsResult_KPI.plan[i].coverageList.Count != 0)
+                                    {
+                                        if (dejsResult_KPI.plan[i].motorClass.ToString() == "1")
+                                        {
+                                            OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[3].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
 
-									}
-									else
-									{
-										OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
-										OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
-										OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[6].coverageAmt.ToString();
-									}
+                                        }
+                                        else
+                                        {
+                                            OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_KPI.plan[i].coverageList[4].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_KPI.plan[i].coverageList[5].coverageAmt.ToString();
+                                            OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_KPI.plan[i].coverageList[6].coverageAmt.ToString();
+                                        }
 
-									OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_KPI.plan[i].coverageList[1].coverageAmt.ToString();
-									OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_KPI.plan[i].coverageList[7].coverageAmt.ToString();
-									OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_KPI.plan[i].coverageList[8].coverageAmt.ToString();
-									OUT_GET_QUOTATION.bailBondAMT = dejsResult_KPI.plan[i].coverageList[9].coverageAmt.ToString();
-								}
-								else
-								{
-									OUT_GET_QUOTATION.bodyPersonAMT = null;
-									OUT_GET_QUOTATION.accidentPersonAMT = null;
-									OUT_GET_QUOTATION.propertiesPersonAMT = null;
-
-
-									OUT_GET_QUOTATION.carDecitibleAMT = null;
-									OUT_GET_QUOTATION.personalAccidentAMT = null;
-
-									OUT_GET_QUOTATION.medicalExpenseAMT = null;
-									OUT_GET_QUOTATION.bailBondAMT = null;
-								}
-
-
-
-								OUT_GET_QUOTATION.floodAMT = null;
-								OUT_GET_QUOTATION.accidentDrive = null;
-								OUT_GET_QUOTATION.acidentPassenger = null;
-								OUT_GET_QUOTATION.disibilityAMT = null;
-								OUT_GET_QUOTATION.disibilityDriver = null;
-								OUT_GET_QUOTATION.disibilityPassenger = null;
-
-								ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                                        OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_KPI.plan[i].coverageList[1].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.personalAccidentAMT = dejsResult_KPI.plan[i].coverageList[7].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_KPI.plan[i].coverageList[8].coverageAmt.ToString();
+                                        OUT_GET_QUOTATION.bailBondAMT = dejsResult_KPI.plan[i].coverageList[9].coverageAmt.ToString();
+                                    }
+                                    else
+                                    {
+                                        OUT_GET_QUOTATION.bodyPersonAMT = null;
+                                        OUT_GET_QUOTATION.accidentPersonAMT = null;
+                                        OUT_GET_QUOTATION.propertiesPersonAMT = null;
 
 
-							}
-						}
-					}
+                                        OUT_GET_QUOTATION.carDecitibleAMT = null;
+                                        OUT_GET_QUOTATION.personalAccidentAMT = null;
 
-					string MSIG = "MSIG";
-					bool MSIGExists = Array.IndexOf(InsuranceCompanyList, MSIG) != -1;
-					if (MSIGExists)
-					{
-						/*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
-						DateTime currentDate = DateTime.Now;
-						string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
-
-						/*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
-						DateTime futureDate = currentDate.AddYears(1);
-						string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
-
-						if (identifyDrivers.ToLower() == "true")
-						{
-
-							var length_listdrivers = list_driversList.Split(',');
-							MSIG_IdentifyDriver = length_listdrivers.Length.ToString();
+                                        OUT_GET_QUOTATION.medicalExpenseAMT = null;
+                                        OUT_GET_QUOTATION.bailBondAMT = null;
+                                    }
 
 
-						}
-						else if (identifyDrivers.ToLower() == "false")
-						{
-							MSIG_IdentifyDriver = "0";
-						}
-						if (carCamera.ToLower() == "true")
-						{
-							FLAG_CCTV = "Y";
-						}
-						else if (carCamera.ToLower() == "false")
-						{
-							FLAG_CCTV = "N";
 
-						}
+                                    OUT_GET_QUOTATION.floodAMT = null;
+                                    OUT_GET_QUOTATION.accidentDrive = null;
+                                    OUT_GET_QUOTATION.acidentPassenger = null;
+                                    OUT_GET_QUOTATION.disibilityAMT = null;
+                                    OUT_GET_QUOTATION.disibilityDriver = null;
+                                    OUT_GET_QUOTATION.disibilityPassenger = null;
+
+                                    ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                                }
+
+                            }
+                        }
+                    }
+
+                    string MSIG = "MSIG";
+                    bool MSIGExists = Array.IndexOf(InsuranceCompanyList, MSIG) != -1;
+                    if (MSIGExists)
+                    {
+                        /*DateTime DfInception_date = Convert.ToDateTime(Inception_date);*/
+                        DateTime currentDate = DateTime.Now;
+                        string SR_Inception_date = currentDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
+
+                        /*DateTime DfExpiry_date = Convert.ToDateTime(Expiry_date);*/
+                        DateTime futureDate = currentDate.AddYears(1);
+                        string SR_Expiry_date = futureDate.ToString("yyyyMMdd", CultureInfo.CreateSpecificCulture("en-US"));
+
+                        if (identifyDrivers.ToLower() == "true")
+                        {
+
+                            var length_listdrivers = list_driversList.Split(',');
+                            MSIG_IdentifyDriver = length_listdrivers.Length.ToString();
+
+
+                        }
+                        else if (identifyDrivers.ToLower() == "false")
+                        {
+                            MSIG_IdentifyDriver = "0";
+                        }
+                        if (carCamera.ToLower() == "true")
+                        {
+                            FLAG_CCTV = "Y";
+                        }
+                        else if (carCamera.ToLower() == "false")
+                        {
+                            FLAG_CCTV = "N";
+
+                        }
 
 
                         /*var Result_MSIG_GET_QUOTATION = FN_MSIG_GET_QUOTATION("R", "Honda", "Jazz", "", "", "20220330", "20230330", "0", "N", "110", "", "", "WS-SGB", "2021", 52000000, 52000000, "01", "BCA8292", "P", "N", "", 0, "7", "1500", 0);*/
@@ -1483,130 +1512,127 @@ namespace WS_Insurer_SGB
                         var Result_MSIG_GET_QUOTATION = FN_MSIG_GET_QUOTATION("R", carBrand, carModel, "", "", SR_Inception_date, SR_Expiry_date, MSIG_IdentifyDriver, "N", carNo.ToString(), "", "", "WS-SGB", carRegisYear, 52000000, 52000000, "01", "BCA8292", "P", FLAG_CCTV, "", 0, Number_Of_Seating, carEngineCC, 0);
                         dejsResult_MSIG = serializer.Deserialize<M_OUTPUT_MSIG>(Result_MSIG_GET_QUOTATION);
 
-						if (dejsResult_MSIG.success.ToLower() == "true")
-						{
-							for (int i = 0; i < dejsResult_MSIG.vehPrem.Count; i++)
-							{
-								string cmp_flag = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
-								bool carInsuranceTypeExists = Array.IndexOf(carInsuranceTypeList, cmp_flag) != -1;
-                                if(carInsuranceType.ToString() == "")
+                        if (dejsResult_MSIG.success.ToLower() == "true")
+                        {
+                            for (int i = 0; i < dejsResult_MSIG.vehPrem.Count; i++)
+                            {
+                                string cmp_flag = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
+                                bool carInsuranceTypeExists = Array.IndexOf(carInsuranceTypeList, cmp_flag) != -1;
+                                if (carInsuranceType.ToString() == "")
                                 {
                                     carInsuranceTypeExists = true;
-								}
+                                }
 
-								if (carInsuranceTypeExists)
+                                if (carInsuranceTypeExists)
                                 {
-								    var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
-								    OUT_GET_QUOTATION.priceListCode = dejsResult_MSIG.vehPrem[i].packagecode.ToString();
-								    OUT_GET_QUOTATION.priceListName = dejsResult_MSIG.vehPrem[i].plan.ToString();
-								    OUT_GET_QUOTATION.insuranceCompany = "MSIG";
-								    OUT_GET_QUOTATION.carNo = null;
-								    OUT_GET_QUOTATION.carBrand = null;
-								    OUT_GET_QUOTATION.carModel = null;
-								    OUT_GET_QUOTATION.carEngineCC = dejsResult_MSIG.vehPrem[i].cc.ToString();
-								    OUT_GET_QUOTATION.carRegisYear = null;
+                                    var OUT_GET_QUOTATION = new M_OUTPUT_ALL_INSURANCE_DATA();
+                                    OUT_GET_QUOTATION.priceListCode = dejsResult_MSIG.vehPrem[i].packagecode.ToString();
+                                    OUT_GET_QUOTATION.priceListName = dejsResult_MSIG.vehPrem[i].plan.ToString();
+                                    OUT_GET_QUOTATION.insuranceCompany = "MSIG";
+                                    OUT_GET_QUOTATION.carNo = null;
+                                    OUT_GET_QUOTATION.carBrand = null;
+                                    OUT_GET_QUOTATION.carModel = null;
+                                    OUT_GET_QUOTATION.carEngineCC = dejsResult_MSIG.vehPrem[i].cc.ToString();
+                                    OUT_GET_QUOTATION.carRegisYear = null;
 
-								    if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "A001")
-								    {
-									    OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
+                                    if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "A001")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมอู่";
 
-								    }
-								    else if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "D001")
-								    {
-									    OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
-								    }
+                                    }
+                                    else if (dejsResult_MSIG.vehPrem[i].cc.ToString() == "D001")
+                                    {
+                                        OUT_GET_QUOTATION.carFixType = "ซ่อมห้าง";
+                                    }
 
-								    if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
-								    {
-									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
-								    }
-								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
-								    {
-									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
-								    }
-								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
-								    {
-									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
-								    }
-								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
-								    {
-									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
-								    }
-								    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
-								    {
-									    OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
-								    }
+                                    if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "1")
+                                    {
+                                        OUT_GET_QUOTATION.carInsuranceType = "ประเภท 1";
+                                    }
+                                    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2")
+                                    {
+                                        OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2";
+                                    }
+                                    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3")
+                                    {
+                                        OUT_GET_QUOTATION.carInsuranceType = "ประเภท 3";
+                                    }
+                                    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "2+")
+                                    {
+                                        OUT_GET_QUOTATION.carInsuranceType = "ประเภท 2+";
+                                    }
+                                    else if (dejsResult_MSIG.vehPrem[i].cmp_flag.ToString() == "3+")
+                                    {
+                                        OUT_GET_QUOTATION.carInsuranceType = "ประเภท5 3+";
+                                    }
 
-								    OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
-								    /*OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
-								    OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_MSIG.vehPrem[i].suminsured.ToString();
-								    OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_MSIG.vehPrem[i].vmi_prem_gross_amount.ToString();
-								    OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_stamp_amount.ToString();
-								    OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_vat_amount.ToString();
-								    OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_prem_due_amount.ToString();
-								    OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperperson.ToString();
-								    OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperevent.ToString();
-								    OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_MSIG.vehPrem[i].tppd.ToString();
-								    OUT_GET_QUOTATION.thieftAMT = dejsResult_MSIG.vehPrem[i].tlamt.ToString();
-								    OUT_GET_QUOTATION.fireAMT = dejsResult_MSIG.vehPrem[i].fiamt.ToString();
-								    OUT_GET_QUOTATION.floodAMT = dejsResult_MSIG.vehPrem[i].flamt.ToString();
-								    OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_MSIG.vehPrem[i].txamt.ToString();
-								    OUT_GET_QUOTATION.personalAccidentAMT = null;
-								    OUT_GET_QUOTATION.accidentDrive = null;
-								    OUT_GET_QUOTATION.acidentPassenger = null;
-								    OUT_GET_QUOTATION.disibilityAMT = null;
-								    OUT_GET_QUOTATION.disibilityDriver = null;
-								    OUT_GET_QUOTATION.disibilityPassenger = dejsResult_MSIG.vehPrem[i].ry01compenpassenger.ToString();
-								    OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_MSIG.vehPrem[i].ry02.ToString();
-								    OUT_GET_QUOTATION.bailBondAMT = dejsResult_MSIG.vehPrem[i].ry03.ToString();
-								    OUT_GET_QUOTATION.effectiveDate = dejsResult_MSIG.vehPrem[i].effdate.ToString();
-								    OUT_GET_QUOTATION.expireDate = dejsResult_MSIG.vehPrem[i].expdate.ToString();
-
-
-								    ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
-								}
-
-							}
-						}
-					}
-				}
+                                    OUT_GET_QUOTATION.carFixType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();
+                                    /*OUT_GET_QUOTATION.carInsuranceType = dejsResult_MSIG.vehPrem[i].cmp_flag.ToString();*/
+                                    OUT_GET_QUOTATION.sumInsuranceAMT = dejsResult_MSIG.vehPrem[i].suminsured.ToString();
+                                    OUT_GET_QUOTATION.premiumInsuranceAMT = dejsResult_MSIG.vehPrem[i].vmi_prem_gross_amount.ToString();
+                                    OUT_GET_QUOTATION.stampInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_stamp_amount.ToString();
+                                    OUT_GET_QUOTATION.vatInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_vat_amount.ToString();
+                                    OUT_GET_QUOTATION.premiumInsuranceTotal = dejsResult_MSIG.vehPrem[i].vmi_prem_due_amount.ToString();
+                                    OUT_GET_QUOTATION.bodyPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperperson.ToString();
+                                    OUT_GET_QUOTATION.accidentPersonAMT = dejsResult_MSIG.vehPrem[i].tpbiperevent.ToString();
+                                    OUT_GET_QUOTATION.propertiesPersonAMT = dejsResult_MSIG.vehPrem[i].tppd.ToString();
+                                    OUT_GET_QUOTATION.thieftAMT = dejsResult_MSIG.vehPrem[i].tlamt.ToString();
+                                    OUT_GET_QUOTATION.fireAMT = dejsResult_MSIG.vehPrem[i].fiamt.ToString();
+                                    OUT_GET_QUOTATION.floodAMT = dejsResult_MSIG.vehPrem[i].flamt.ToString();
+                                    OUT_GET_QUOTATION.carDecitibleAMT = dejsResult_MSIG.vehPrem[i].txamt.ToString();
+                                    OUT_GET_QUOTATION.personalAccidentAMT = null;
+                                    OUT_GET_QUOTATION.accidentDrive = null;
+                                    OUT_GET_QUOTATION.acidentPassenger = null;
+                                    OUT_GET_QUOTATION.disibilityAMT = null;
+                                    OUT_GET_QUOTATION.disibilityDriver = null;
+                                    OUT_GET_QUOTATION.disibilityPassenger = dejsResult_MSIG.vehPrem[i].ry01compenpassenger.ToString();
+                                    OUT_GET_QUOTATION.medicalExpenseAMT = dejsResult_MSIG.vehPrem[i].ry02.ToString();
+                                    OUT_GET_QUOTATION.bailBondAMT = dejsResult_MSIG.vehPrem[i].ry03.ToString();
+                                    OUT_GET_QUOTATION.effectiveDate = dejsResult_MSIG.vehPrem[i].effdate.ToString();
+                                    OUT_GET_QUOTATION.expireDate = dejsResult_MSIG.vehPrem[i].expdate.ToString();
 
 
+                                    ResultList_QUOTATION.Add(OUT_GET_QUOTATION);
+                                }
 
-               
+                            }
+                        }
+                    }
+                }
+
 
                 Result_ALL_QUOTATION.status = "SUCCESS";
                 Result_ALL_QUOTATION.message = "SUCCESS";
                 Result_ALL_QUOTATION.data = ResultList_QUOTATION;
 
 
-				// Create a log file
-				string fileName = "log.txt";
-				string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+                // Create a log file
+                string fileName = "log.txt";
+                string logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
-				if (File.Exists(logFilePath))
-				{
-					Console.WriteLine("The file already exists.");
-				}
-				else
-				{
-					try
-					{
-						File.Create(logFilePath);
-						Console.WriteLine("File created successfully.");
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine("An error occurred while creating the file: " + ex.Message);
-					}
-				}
+                if (File.Exists(logFilePath))
+                {
+                    Console.WriteLine("The file already exists.");
+                }
+                else
+                {
+                    try
+                    {
+                        File.Create(logFilePath);
+                        Console.WriteLine("File created successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("An error occurred while creating the file: " + ex.Message);
+                    }
+                }
 
-				using (StreamWriter writer = File.AppendText(logFilePath))
-				{
-					writer.WriteLine(txtRequest);
-				}
+                using (StreamWriter writer = File.AppendText(logFilePath))
+                {
+                    writer.WriteLine(txtRequest);
+                }
 
-				return new JavaScriptSerializer().Serialize(Result_ALL_QUOTATION);
+                return new JavaScriptSerializer().Serialize(Result_ALL_QUOTATION);
 
 
             }
@@ -1621,9 +1647,6 @@ namespace WS_Insurer_SGB
 
 
         }
-
-
-
 
         //Issue_Policy//
         [WebMethod]
@@ -2032,7 +2055,7 @@ namespace WS_Insurer_SGB
 
 
 
-		/*[WebMethod]
+        /*[WebMethod]
 		public string FN_SEND_INSURANCE(string InsuranceCompany, string carBrand, string carModel, string carYear, string carRegisYear, string carNo, string carProvince, string carEngineCC, string carWeight, string carCamera, string carFixType, string carInsuranceType, string identifyDrivers, string driverName1, string driverName2, string driverBirthDate1, string driverBirthDate2, string Inception_date, string Expiry_date, string Number_Of_Seating)
 		{
 
@@ -2549,5 +2572,5 @@ namespace WS_Insurer_SGB
 
 		}*/
 
-	}
+    }
 }
