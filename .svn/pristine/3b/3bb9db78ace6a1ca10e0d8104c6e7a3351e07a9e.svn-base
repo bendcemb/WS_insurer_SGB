@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <system.web>
+    <compilation targetFramework="4.5.2" />
+    <httpRuntime targetFramework="4.5.2" />
+    <httpModules>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
+    </httpModules>
+  </system.web>
+  <appSettings>
+    <!-- TEST  -->
+    <!-- JMI  -->
+    <add key="strUrlJMI" value="https://service.jpuat.com" />
+    <add key="strAppUserJMI" value="SG-BR" />
+    <add key="strAppPasswordJMI" value="12345678" />
+    <add key="strAppTokenJMI" value="U0ctQlI6MTIzNDU2Nzg=" />
+    <!-- MSIG  -->
+    <add key="strUrlMSIG" value="https://mar.msig-thai.com/zlm" />
+    <add key="strAppIDMsig" value="1013" />
+    <add key="strHash" value="de4f3e197cd15cb0d6cad7bc86914f8701aa5e51efcf6643bc28bf7cda32b9d140858f2019b209cb88908e3e8d6e922e8624a80048bc613c551474ad782a96e5" />
+    <add key="strCookie" value="incap_ses_342_2301599=Vf/1Czn0rx65A8O18we/BHc30mMAAAAA72TbvuAGZw5qrsd85CmOTQ==; visid_incap_2301599=fA8OBptiTB2uq5ZucKP9Inc30mMAAAAAQUIPAAAAAADhS5NkXnoYMkcPNvpPJUwB" />
+    <add key="strHashKey" value="jH2R*3@0kvKO&amp;H4o" />
+    <!-- VIB  -->
+    <add key="strUrlVIB" value="https://uat-api.viriyah.co.th/uat/gw/api" />
+    <add key="strClientIdVIB" value="d5af533f-bccd-4ec0-aada-1a6af830e65a" />
+    <add key="strClientSecretVIB" value="6595fd8b-96ed-4bab-88c3-f9e233790c6e" />
+    <add key="strApi_passVIB" value="P@ssw0rd" />
+    <add key="str_agentCodeVIB" value="00000" />
+    <add key="Status_APP" value="TEST" />
+    <add key="strConnSGDIRECT" value="Data Source=SG-K2DEV;Initial Catalog=SG_DIRECT;User ID=SG_HOME_DEV_01;Password=SG@home!2022$d" />
+    <!-- KPI  -->
+    <add key="strUrlKPI" value="https://bkapigsuat.kpi.co.th" />
+    <add key="strissue_url" value="https://saletools-openapi-uat.kpi.co.th" />
+    <add key="strissue_api_key" value="AIzaSyADXlVVR6vXKaYJ2JeZzjgGn9Sh7fWQSDk" />
+    <add key="strAuthorization" value="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYnJva2VyX3NpbmdlciIsImlzcyI6InN2dFN4MHBRT0RpbFpmRkF4QlF3bFFaOUhnMDVRSmpBIn0.59TqezyDuQBjjRt8UA25NOxngpfGBq5ERBMGk99yKk0" />
+    <add key="strContent_Type" value="application/json" />
+    <add key="strmotor_pricing_token" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYnJva2VyX3NpbmdlciIsImlzcyI6InN2dFN4MHBRT0RpbFpmRkF4QlF3bFFaOUhnMDVRSmpBIn0.59TqezyDuQBjjRt8UA25NOxngpfGBq5ERBMGk99yKk" />
+    <add key="strbroker_code" value="0032003939" />
+    <add key="strbroker_deptcode" value="0032003939" />
+    <add key="strbroker_licenseno" value="วว-9999999" />
+    <add key="strtitle_code" value="" />
+    <add key="strtitle" value="บริษัท" />
+    <add key="strfirst_name" value="ซิงเกอร์" />
+    <add key="strlast_name" value="จำกัด" />
+    <add key="strpartner_code" value="Sawasdee" />
+    <add key="str" value="" />
+    <add key="str" value="" />
+    <!-- PROD-->
+    <!--<add key="strConnSGDIRECT" value="Data Source=SG-K2PROD-DB;Initial Catalog=SG_DIRECT;User ID=SG_HOME_PROD_01;Password=SG@home!2022$"/>-->
+  </appSettings>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:6 /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:14 /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules>
+      <remove name="ApplicationInsightsWebTracking" />
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
+    </modules>
+  </system.webServer>
+</configuration>
+<!--ProjectGuid: {266C26A8-A4AE-4FAE-89A1-D5154A5E23D5}-->
